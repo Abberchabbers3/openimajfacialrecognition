@@ -1,3 +1,4 @@
+package justinproj;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,11 @@ public class Menu {
 	private void start() {
 		JFrame window = new JFrame();
 		JPanel panel = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 2162279053724239438L;
+
 			@Override 
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
