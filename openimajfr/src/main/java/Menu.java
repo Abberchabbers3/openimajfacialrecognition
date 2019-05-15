@@ -10,12 +10,11 @@ import javax.swing.JPanel;
 public class Menu {
 	
 	public static void main(String[] args) {
-//		Menu m = new Menu();
-//		m.start();
-		start();
+		Menu m = new Menu();
+		m.start();
 	}
 
-	private static void start() {
+	private void start() {
 		JFrame window = new JFrame();
 		JPanel panel = new JPanel() {
 			@Override 
