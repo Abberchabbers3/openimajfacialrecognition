@@ -2,19 +2,29 @@ package Attendance;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -30,6 +40,8 @@ public class AttendanceTaker {
 	Image picture = null;
 	JPanel panel;
 	Webcam webcam;
+	JLabel jlabel;
+	int element = 0;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
@@ -42,7 +54,7 @@ public class AttendanceTaker {
 		webcam.setViewSize(WebcamResolution.VGA.getSize());
 		webcam.open(true);
 		detector = new HaarCascadeDetector();
-		JFrame window = new JFrame();
+		JFrame window = new JFrame("Attendance");
 		panel = new JPanel() {
 			private static final long serialVersionUID = 8313458371063493113L;
 
@@ -96,12 +108,14 @@ public class AttendanceTaker {
 			}		
 		});
 		facedetection.start();
-
 		JButton picbutton = new JButton("Take Attendance");
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				attendanceChecker();
+				String s = attendanceChecker(picture);
+				JFrame frame = new JFrame("Recorded!");
+				JOptionPane.showMessageDialog(frame, s + " has been marked: PRESENT");
+			    
 			}
 		});
 		panel.setLayout(null);
@@ -114,25 +128,32 @@ public class AttendanceTaker {
 		window.pack();
 		window.setVisible(true);
 	}
-	
-	public String attendanceChecker() {
-//		// Not Sure If This Will Work
-//		
-//		for(Image profile: ProfilePics) {
-//			int result = compare(picture, profile);
-//			if(result <=10) {
-//				//replace **************** with String Name Of File
-//				JLabel label = new JLabel(new ImageIcon(getClass().getResource("/ProfilePics/****************.png")));;
-//			}
-//		}
+
+	public String attendanceChecker(Image picture) {
+		//		// Not Sure If This Will Work
+		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
+		for(int i = element ; i < files.length ; i++) {
+			System.out.println(files[i].getName());
+			int result = compare(picture, files[i]);
+			if(result <=10) {
+				//replace **************** with String Name Of File
+				int j= files[i].getName().indexOf("-");
+				int k= files[i].getName().lastIndexOf("-");
+				String personName = files[i].getName().substring(j+1,k);
+				element++;
+				return personName;
+			}
+			else if()
+		}
+
 		//This is just to get rid of the  error message
 		return "";
 	}
 
-	public int compare(Image takenPic, Image profilePic) {
+	public int compare(Image takenPic, File files) {
 		// Return Value Of Comparison
 		// Same Person Should Get int To Be Close To 0
-		
+
 		return 0;
 	}
 }

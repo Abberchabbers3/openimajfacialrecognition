@@ -1,13 +1,5 @@
 package Attendance;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class Menu {
 	
@@ -16,6 +8,7 @@ public class Menu {
 		m.start();
 	}
 
+	@SuppressWarnings("unused")
 	private void start() {
 		Object[] options = {"Create Profile","Take Attendance"};
 		int n = JOptionPane.showOptionDialog(null, "What would you like to do?", "Set-up", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0);

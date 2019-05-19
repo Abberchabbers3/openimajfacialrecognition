@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import org.openimaj.image.ImageUtilities;
