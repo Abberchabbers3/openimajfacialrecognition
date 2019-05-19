@@ -28,14 +28,14 @@ import org.openimaj.math.geometry.shape.Rectangle;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
-public class profilecreator {
+public class ProfileCreator {
 	Image j = null;
 	JPanel panel;
 	Webcam webcam;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
-	public profilecreator() {
+	public ProfileCreator() {
 		initialize();
 	}
 

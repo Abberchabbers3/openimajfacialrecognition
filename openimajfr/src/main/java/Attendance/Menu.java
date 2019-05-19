@@ -20,16 +20,13 @@ public class Menu {
 		Object[] options = {"Create Profile","Take Attendance"};
 		int n = JOptionPane.showOptionDialog(null, "What would you like to do?", "Set-up", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0);
 		if(n==0) {
-			//code to create a new profile
-			profilecreator pc = new profilecreator();
-//			while (n!=-1) {
-//				String name = JOptionPane.showInputDialog("Please enter profile name");
-//				pc.newprofile(name);
-//				n=0;
-//			}
+			//Code To Create A New Profile
+			ProfileCreator pc = new ProfileCreator();
+			
 		}
 		else if(n==1) {
-			//code to take attendance
+			//Code For Taking Attendance
+			AttendanceTaker at = new AttendanceTaker();
 		}
 		else {
 			//user closed out of window
