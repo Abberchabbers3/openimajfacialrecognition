@@ -54,7 +54,7 @@ public class profilecreator {
 		panel = new JPanel() {
 			@Override 
 			public void paintComponent(Graphics g) {
-				//faces are off center
+				//Faces Are Off Center
 				super.paintComponent(g);
 				g.drawImage(j, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
 				for (DetectedFace face: faces) {
@@ -62,9 +62,9 @@ public class profilecreator {
 
 					int dx = (int) (0.1 * bounds.width);
 					int dy = (int) (0.2 * bounds.height);
-					int x = (int) bounds.x - dx;
+					int x = (int) bounds.x - dx +50;
 					int y = (int) bounds.y - dy;
-					int w = (int) bounds.width + 2 * dx;
+					int w = (int) bounds.width + 2 * dx +50;
 					int h = (int) bounds.height + dy;
 					
 					Graphics2D g2 = (Graphics2D) g.create();
@@ -88,7 +88,7 @@ public class profilecreator {
 			}		
 		});
 		imagetimer.start();
-		//made this a seperate slower timer because it was really laggy but it didn't help too much
+		//Made This A Separate Slower Timer Because It Was Really Laggy But It Didn't Help Too Much
 		Timer facedetection = new Timer(1000,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -120,6 +120,9 @@ public class profilecreator {
 	}
 	public void newprofile() {
 		// this will save the image as a file in profiles after asking for a name and a conformation
+		
+		
+		
 //		try {
 //			String name = String.format("frcam-%d.jpg", System.currentTimeMillis());
 //			ImageIO.write(webcam.getImage(), "JPG", new File(name));
