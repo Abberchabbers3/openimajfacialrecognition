@@ -42,6 +42,8 @@ public class AttendanceTaker {
 	Webcam webcam;
 	JLabel jlabel;
 	int element = 0;
+	String mark;
+	boolean att = true;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
@@ -114,7 +116,9 @@ public class AttendanceTaker {
 			public void actionPerformed(ActionEvent e) {
 				String s = attendanceChecker(picture);
 				JFrame frame = new JFrame("Recorded!");
-				JOptionPane.showMessageDialog(frame, s + " has been marked: PRESENT");
+				if (att==true) mark = "PRESENT";
+				else mark = "ABSENT";
+				JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
 			    
 			}
 		});
@@ -143,7 +147,12 @@ public class AttendanceTaker {
 				element++;
 				return personName;
 			}
-			else if()
+			else { 
+				att=false;
+				JFrame frame = new JFrame("Error");
+				JOptionPane.showMessageDialog(frame, "Student Is Not On The Roster");
+				return "";
+			}
 		}
 
 		//This is just to get rid of the  error message
