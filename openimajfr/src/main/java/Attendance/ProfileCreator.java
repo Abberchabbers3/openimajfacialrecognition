@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -103,7 +104,7 @@ public class ProfileCreator {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				newprofile();
+				newprofile(webcam.getImage());
 			}
 		});
 		panel.setLayout(null);
@@ -116,13 +117,13 @@ public class ProfileCreator {
 		window.pack();
 		window.setVisible(true);
 	}
-	public void newprofile() {
+	public void newprofile(Image profileimage) {
 		// this will save the image as a file in profiles after asking for a name and a conformation
 		String personID = JOptionPane.showInputDialog("What Is Your Full Name?");
 		JFrame frame = new JFrame("JOptionPane showMessageDialog example");
 		try {
 			String name = "ProfilePics/" + String.format("frcam-" + personID + "-%d.jpg", System.currentTimeMillis());
-			ImageIO.write(webcam.getImage(), "JPG", new File(name));
+			ImageIO.write((RenderedImage) profileimage, "JPG", new File(name));
 			JOptionPane.showMessageDialog(frame, "Your Image Has Been Saved!");
 			System.out.format("File %s has been saved\n", name);
 		} 
