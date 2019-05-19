@@ -121,7 +121,7 @@ public class profilecreator {
 		String personID = JOptionPane.showInputDialog("What Is Your Full Name?");
 		JFrame frame = new JFrame("JOptionPane showMessageDialog example");
 		try {
-			String name = "profiles/" + String.format("frcam- " + personID + "- %d.jpg", System.currentTimeMillis());
+			String name = "profiles/" + String.format("frcam-" + personID + "-%d.jpg", System.currentTimeMillis());
 			ImageIO.write(webcam.getImage(), "JPG", new File(name));
 			JOptionPane.showMessageDialog(frame, "Your Image Has Been Saved!");
 			System.out.format("File %s has been saved\n", name);
