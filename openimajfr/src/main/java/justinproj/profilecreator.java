@@ -6,22 +6,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Panel;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -31,7 +26,6 @@ import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
 import org.openimaj.math.geometry.shape.Rectangle;
 
 import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class profilecreator {
@@ -52,26 +46,30 @@ public class profilecreator {
 		detector = new HaarCascadeDetector();
 		JFrame window = new JFrame();
 		panel = new JPanel() {
+			private static final long serialVersionUID = 8313458371063493113L;
+
 			@Override 
 			public void paintComponent(Graphics g) {
 				//Faces Are Off Center
 				super.paintComponent(g);
 				g.drawImage(j, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
-				for (DetectedFace face: faces) {
-					Rectangle bounds = face.getBounds();
-
-					int dx = (int) (0.1 * bounds.width);
-					int dy = (int) (0.2 * bounds.height);
-					int x = (int) bounds.x - dx +50;
-					int y = (int) bounds.y - dy;
-					int w = (int) bounds.width + 2 * dx +50;
-					int h = (int) bounds.height + dy;
-					
-					Graphics2D g2 = (Graphics2D) g.create();
-					g2.setStroke(STROKE);
-					g2.setColor(Color.GREEN);
-					g2.drawRect(x, y, w, h);
-					g2.dispose();
+				if(faces != null && faces.size() > 0) {
+					for (DetectedFace face: faces) {
+						Rectangle bounds = face.getBounds();
+	
+						int dx = (int) (0.1 * bounds.width);
+						int dy = (int) (0.2 * bounds.height);
+						int x = (int) bounds.x - dx +50;
+						int y = (int) bounds.y - dy;
+						int w = (int) bounds.width + 2 * dx +50;
+						int h = (int) bounds.height + dy;
+						
+						Graphics2D g2 = (Graphics2D) g.create();
+						g2.setStroke(STROKE);
+						g2.setColor(Color.GREEN);
+						g2.drawRect(x, y, w, h);
+						g2.dispose();
+					}
 				}
 			}
 		};
@@ -120,17 +118,17 @@ public class profilecreator {
 	}
 	public void newprofile() {
 		// this will save the image as a file in profiles after asking for a name and a conformation
-		
-		
-		
-//		try {
-//			String name = String.format("frcam-%d.jpg", System.currentTimeMillis());
-//			ImageIO.write(webcam.getImage(), "JPG", new File(name));
-//			System.out.format("File %s has been saved\n", name);
-//		} 
-//		catch (IOException t) {
-//			t.printStackTrace();
-//		}
+		String personID = JOptionPane.showInputDialog("What Is Your Full Name?");
+		JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+		try {
+			String name = "profiles/" + String.format("frcam- " + personID + "- %d.jpg", System.currentTimeMillis());
+			ImageIO.write(webcam.getImage(), "JPG", new File(name));
+			JOptionPane.showMessageDialog(frame, "Your Image Has Been Saved!");
+			System.out.format("File %s has been saved\n", name);
+		} 
+		catch (IOException t) {
+			t.printStackTrace();
+		}
 		
 	}
 
