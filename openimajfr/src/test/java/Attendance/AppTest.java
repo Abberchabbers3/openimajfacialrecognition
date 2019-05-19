@@ -1,4 +1,4 @@
-package justinproj;
+package Attendance;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package justinproj;
+package Attendance;
 
 import org.openimaj.image.DisplayUtilities;
 import org.openimaj.image.MBFImage;

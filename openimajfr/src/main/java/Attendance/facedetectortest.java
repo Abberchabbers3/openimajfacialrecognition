@@ -1,4 +1,4 @@
-package justinproj;
+package Attendance;
 
 
 import java.awt.BasicStroke;
