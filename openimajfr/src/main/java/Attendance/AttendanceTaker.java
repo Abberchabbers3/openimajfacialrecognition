@@ -11,8 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -25,7 +27,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class AttendanceTaker {
-	Image j = null;
+	Image picture = null;
 	JPanel panel;
 	Webcam webcam;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
@@ -48,7 +50,7 @@ public class AttendanceTaker {
 			public void paintComponent(Graphics g) {
 				//Faces Are Off Center
 				super.paintComponent(g);
-				g.drawImage(j, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
+				g.drawImage(picture, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
 				if(faces != null && faces.size() > 0) {
 					for (DetectedFace face: faces) {
 						Rectangle bounds = face.getBounds();
@@ -77,7 +79,7 @@ public class AttendanceTaker {
 				if (!webcam.isOpen()) {
 					return;
 				}
-				j = webcam.getImage();
+				picture = webcam.getImage();
 				panel.repaint();
 			}		
 		});
@@ -113,8 +115,23 @@ public class AttendanceTaker {
 		window.setVisible(true);
 	}
 	
-	private void attendanceChecker() {
-		// TODO Auto-generated method stub
+	public String attendanceChecker() {
+//		// Not Sure If This Will Work
+//		
+//		for(Image profile: ProfilePics) {
+//			int result = compare(picture, profile);
+//			if(result <=10) {
+//				//replace **************** with String Name Of File
+//				JLabel label = new JLabel(new ImageIcon(getClass().getResource("/ProfilePics/****************.png")));;
+//			}
+//		}
 
+	}
+
+	public int compare(Image takenPic, Image profilePic) {
+		// Return Value Of Comparison
+		// Same Person Should Get int To Be Close To 0
+		
+		return 0;
 	}
 }

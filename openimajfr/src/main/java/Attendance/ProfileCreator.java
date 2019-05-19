@@ -131,5 +131,9 @@ public class ProfileCreator {
 		}
 		
 	}
-
+	public String getName() {
+		//Return Name From Saved Profile Image
+		
+		return null;
+	}
 }
