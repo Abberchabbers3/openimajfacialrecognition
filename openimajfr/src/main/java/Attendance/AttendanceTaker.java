@@ -125,7 +125,7 @@ public class AttendanceTaker {
 //				JLabel label = new JLabel(new ImageIcon(getClass().getResource("/ProfilePics/****************.png")));;
 //			}
 //		}
-
+		return "";
 	}
 
 	public int compare(Image takenPic, Image profilePic) {
