@@ -99,7 +99,7 @@ public class ProfileCreator {
 		});
 		facedetection.start();
 		
-		JButton picbutton = new JButton("Take Picture");
+		JButton picbutton = new JButton("Create Profile");
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
