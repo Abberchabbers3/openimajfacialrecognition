@@ -24,9 +24,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/justinlewman/Desktop/webcam-capture-0.3.12-dist/libs/bridj-0.7.0.jar"/>
-	<classpathentry kind="lib" path="/Users/justinlewman/Desktop/webcam-capture-0.3.12-dist/libs/slf4j-api-1.7.2.jar"/>
-	<classpathentry kind="lib" path="/Users/justinlewman/Desktop/slf4j-1.7.26/slf4j-simple-1.7.26.jar"/>
-	<classpathentry kind="lib" path="/Users/justinlewman/Desktop/webcam-capture-0.3.12-dist/webcam-capture-0.3.12 .jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
