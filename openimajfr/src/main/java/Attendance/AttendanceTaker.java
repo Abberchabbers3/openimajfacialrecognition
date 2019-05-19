@@ -125,7 +125,8 @@ public class AttendanceTaker {
 //				JLabel label = new JLabel(new ImageIcon(getClass().getResource("/ProfilePics/****************.png")));;
 //			}
 //		}
-
+		//This is just to get rid of the  error message
+		return "";
 	}
 
 	public int compare(Image takenPic, Image profilePic) {
