@@ -65,7 +65,7 @@ public class ProfileCreator {
 	
 						int dx = (int) (0.1 * bounds.width);
 						int dy = (int) (0.2 * bounds.height);
-						currx = (int) bounds.x - dx;
+						currx = (int) bounds.x;
 						curry = (int) bounds.y;
 						currw = (int) bounds.width + 2 * dx;
 						currh = (int) bounds.height;
