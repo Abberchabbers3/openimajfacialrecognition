@@ -173,7 +173,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>justinproj.App</mainClass>
+              <mainClass>Attendence.Menu</mainClass>
             </manifest>
           </archive>
         </configuration>
