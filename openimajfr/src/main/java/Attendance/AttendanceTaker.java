@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 
@@ -105,7 +106,7 @@ public class AttendanceTaker {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String s = attendanceChecker(picture);
+				String s = attendanceChecker((BufferedImage)picture);
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
 				else mark = "ABSENT";
@@ -124,7 +125,7 @@ public class AttendanceTaker {
 		window.setVisible(true);
 	}
 
-	public String attendanceChecker(Image picture) {
+	public String attendanceChecker(BufferedImage picture) {
 		//		// Not Sure If This Will Work
 		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
 		for(int i = element ; i < files.length ; i++) {
@@ -150,10 +151,11 @@ public class AttendanceTaker {
 		return "";
 	}
 
-	public int compare(Image takenPic, File files) {
+	public int compare(BufferedImage takenPic, File files) {
 		// Return Value Of Comparison
 		// Same Person Should Get int To Be Close To 0
-
+		BufferedImage i = takenPic;
+		
 		return 0;
 	}
 }
