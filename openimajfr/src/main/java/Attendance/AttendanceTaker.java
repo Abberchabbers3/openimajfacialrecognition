@@ -11,8 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -149,10 +151,21 @@ public class AttendanceTaker {
 	}
 
 	public int compare(BufferedImage takenPic, File files) {
-		// Return Value Of Comparison
-		// Same Person Should Get int To Be Close To 0
-		BufferedImage i = takenPic;
-		
-		return 0;
+		try {
+			BufferedImage i = ImageIO.read(files);
+//			System.out.println(i);
+			DetectEyeTrial e = new DetectEyeTrial (i);
+			DetectEyeTrial d = new DetectEyeTrial (takenPic);
+			takenPic = (BufferedImage) d.detectWhite(takenPic);
+			int d1 = d.greenCount(takenPic);
+			int e1 = e.greenCount(i);
+			System.out.println(d1);
+			System.out.println(e1);
+			return d1-e1;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }
