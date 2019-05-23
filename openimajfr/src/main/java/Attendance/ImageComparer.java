@@ -18,7 +18,7 @@ public class ImageComparer {
 				for(int x=3;x>1;x--) {
 					image[r][c][x-1]=(p>>(x*4) & 255);
 				}
-				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<1000) {
+				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<400) {
 					Color White = new Color(0,255,0);
 					int rgb = White.getRGB();
 					i.setRGB(r, c, rgb);
@@ -43,11 +43,7 @@ public class ImageComparer {
 				for(int x=3;x>1;x--) {
 					image[r][c][x-1]=(p>>(x*4) & 255);
 				}
-			}
-		}
-		for(int r=0; r<image.length; r++) {
-			for(int c=0; c<image[r].length; c++) {
-				if(image[r][c][0]==0&&image[r][c][1]==255&&image[r][c][2]==0) {
+				if(image[r][c][1]==255) {
 					count++;
 				}
 			}

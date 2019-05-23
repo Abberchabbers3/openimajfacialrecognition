@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -72,6 +73,10 @@ public class AttendanceTaker {
 						curry = (int) bounds.y;
 						currw = (int) bounds.width + 2 * dx;
 						currh = (int) bounds.height;
+						x=currx;
+						y=curry;
+						w=currw;
+						h=currh;
 						
 						Graphics2D g2 = (Graphics2D) g.create();
 						g2.setStroke(STROKE);
@@ -111,7 +116,9 @@ public class AttendanceTaker {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String s = attendanceChecker((BufferedImage)picture);
+				BufferedImage blehpicture = ((BufferedImage) picture).getSubimage(x,y,w,h);
+				String s = attendanceChecker(blehpicture);
+				
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
 				else mark = "ABSENT";
@@ -135,7 +142,7 @@ public class AttendanceTaker {
 		for(int i = element ; i < files.length ; i++) {
 			System.out.println(files[i].getName());
 			int result = compare(picture, files[i]);
-			if(result <=10) {
+			if(result <=48000) {
 				int j= files[i].getName().indexOf("-");
 				int k= files[i].getName().lastIndexOf("-");
 				String personName = files[i].getName().substring(j+1,k);
@@ -156,6 +163,9 @@ public class AttendanceTaker {
 	public int compare(BufferedImage takenPic, File files) {
 		try {
 			BufferedImage i = ImageIO.read(files);
+			ImageIcon icon = new ImageIcon(takenPic);
+			int input = JOptionPane.showConfirmDialog(null, "Is this you?", "Person Checker",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
 			ImageComparer e = new ImageComparer (i);
 			ImageComparer d = new ImageComparer (takenPic);
 			takenPic = (BufferedImage) d.detectWhite(takenPic);
