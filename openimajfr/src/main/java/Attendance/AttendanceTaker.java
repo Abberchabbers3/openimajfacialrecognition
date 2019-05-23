@@ -153,7 +153,6 @@ public class AttendanceTaker {
 	public int compare(BufferedImage takenPic, File files) {
 		try {
 			BufferedImage i = ImageIO.read(files);
-//			System.out.println(i);
 			DetectEyeTrial e = new DetectEyeTrial (i);
 			DetectEyeTrial d = new DetectEyeTrial (takenPic);
 			takenPic = (BufferedImage) d.detectWhite(takenPic);
