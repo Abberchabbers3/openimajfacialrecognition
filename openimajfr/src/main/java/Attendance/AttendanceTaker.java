@@ -156,8 +156,8 @@ public class AttendanceTaker {
 	public int compare(BufferedImage takenPic, File files) {
 		try {
 			BufferedImage i = ImageIO.read(files);
-			DetectEyeTrial e = new DetectEyeTrial (i);
-			DetectEyeTrial d = new DetectEyeTrial (takenPic);
+			ImageComparer e = new ImageComparer (i);
+			ImageComparer d = new ImageComparer (takenPic);
 			takenPic = (BufferedImage) d.detectWhite(takenPic);
 			int d1 = d.greenCount(takenPic);
 			int e1 = e.greenCount(i);
