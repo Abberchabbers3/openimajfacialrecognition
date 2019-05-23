@@ -18,7 +18,7 @@ public class ImageComparer {
 				for(int x=3;x>1;x--) {
 					image[r][c][x-1]=(p>>(x*4) & 255);
 				}
-				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<200) {
+				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<400) {
 					Color White = new Color(0,255,0);
 					int rgb = White.getRGB();
 					i.setRGB(r, c, rgb);
