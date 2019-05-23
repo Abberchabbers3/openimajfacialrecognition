@@ -16,11 +16,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -64,6 +62,7 @@ public class ProfileCreator {
 						Rectangle bounds = face.getBounds();
 	
 						int dx = (int) (0.1 * bounds.width);
+						@SuppressWarnings("unused")
 						int dy = (int) (0.2 * bounds.height);
 						currx = (int) bounds.x;
 						curry = (int) bounds.y;
