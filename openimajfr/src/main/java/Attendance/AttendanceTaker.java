@@ -125,13 +125,11 @@ public class AttendanceTaker {
 	}
 
 	public String attendanceChecker(Image picture) {
-		//		// Not Sure If This Will Work
 		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
 		for(int i = element ; i < files.length ; i++) {
 			System.out.println(files[i].getName());
 			int result = compare(picture, files[i]);
 			if(result <=10) {
-				//replace **************** with String Name Of File
 				int j= files[i].getName().indexOf("-");
 				int k= files[i].getName().lastIndexOf("-");
 				String personName = files[i].getName().substring(j+1,k);
@@ -146,11 +144,11 @@ public class AttendanceTaker {
 			}
 		}
 
-		//This is just to get rid of the  error message
 		return "";
 	}
 
 	public int compare(Image takenPic, File files) {
+		
 		// Return Value Of Comparison
 		// Same Person Should Get int To Be Close To 0
 
