@@ -37,6 +37,8 @@ public class AttendanceTaker {
 	JLabel jlabel;
 	int element = 0;
 	String mark;
+	int currx,curry,currw,currh;
+	int x,y,w,h;
 	boolean att = true;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
@@ -64,16 +66,17 @@ public class AttendanceTaker {
 						Rectangle bounds = face.getBounds();
 
 						int dx = (int) (0.1 * bounds.width);
+						@SuppressWarnings("unused")
 						int dy = (int) (0.2 * bounds.height);
-						int x = (int) bounds.x - dx +50;
-						int y = (int) bounds.y - dy;
-						int w = (int) bounds.width + 2 * dx +50;
-						int h = (int) bounds.height + dy;
-
+						currx = (int) bounds.x;
+						curry = (int) bounds.y;
+						currw = (int) bounds.width + 2 * dx;
+						currh = (int) bounds.height;
+						
 						Graphics2D g2 = (Graphics2D) g.create();
 						g2.setStroke(STROKE);
 						g2.setColor(Color.GREEN);
-						g2.drawRect(x, y, w, h);
+						g2.drawRect(currx+50, curry, currw+2*dx, currh);
 						g2.dispose();
 					}
 				}
