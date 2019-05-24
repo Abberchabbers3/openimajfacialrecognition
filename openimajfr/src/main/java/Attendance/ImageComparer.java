@@ -38,6 +38,7 @@ public class ImageComparer {
 //		System.out.println(count+" Height"+i.getHeight()+"Width"+i.getWidth()+i);
 		return i;
 	}
+	
 	public int greenCount(BufferedImage i,int startrow,int endrow,int startcol,int endcol) {
 //		System.out.print("width"+i.getHeight());
 //		System.out.print("height"+i.getWidth());
@@ -54,5 +55,10 @@ public class ImageComparer {
 			}
 		}
 		return count;
+	}
+	
+	public void setBackground(BufferedImage i,Color white) {
+		// find  face edges, then set the rest to white
+		//return i;
 	}
 }

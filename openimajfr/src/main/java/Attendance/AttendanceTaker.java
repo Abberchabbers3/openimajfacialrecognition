@@ -104,7 +104,7 @@ public class AttendanceTaker {
 		});
 		imagetimer.start();
 		//Made This A Separate Slower Timer Because It Was Really Laggy But It Didn't Help Too Much
-		Timer facedetection = new Timer(1000,new ActionListener() {
+		Timer facedetection = new Timer(0,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (!webcam.isOpen()) {
