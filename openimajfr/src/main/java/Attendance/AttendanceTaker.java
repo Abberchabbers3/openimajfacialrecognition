@@ -32,6 +32,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class AttendanceTaker {
+	int amtsections = 100;
 	Image picture = null;
 	JPanel panel;
 	Webcam webcam;
@@ -129,7 +130,6 @@ public class AttendanceTaker {
 		panel.setLayout(null);
 		//fix button bounds
 		picbutton.setBounds(0,(3*d.width)/5, d.width, d.height/5);
-		System.out.println(picbutton.getY());
 		panel.add(picbutton);
 		window.add(panel);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,46 +138,69 @@ public class AttendanceTaker {
 	}
 
 	public String attendanceChecker(BufferedImage picture) {
+		//works if the background is the same and teh person is the same, untested in other scenarios
 		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
+		int best = Integer.MAX_VALUE;
+		int bindex=0;
 		for(int i = element ; i < files.length ; i++) {
 			System.out.println(files[i].getName());
 			int result = compare(picture, files[i]);
-			if(result <=48000) {
-				int j= files[i].getName().indexOf("-");
-				int k= files[i].getName().lastIndexOf("-");
-				String personName = files[i].getName().substring(j+1,k);
-				element++;
-				return personName;
-			}
-			else { 
-				att=false;
-				JFrame frame = new JFrame("Error");
-				JOptionPane.showMessageDialog(frame, "Student Is Not On The Roster");
-				return "";
+			if(result<best) {
+				best=result;
+				bindex=i;
 			}
 		}
-
-		return "";
+		File file = files[bindex];
+		if(best <=5000) {
+			int j= file.getName().indexOf("-");
+			int k= file.getName().lastIndexOf("-");
+			String personName = file.getName().substring(j+1,k);
+			return personName;
+		}
+		else { 
+			att=false;
+			JFrame frame = new JFrame("Error");
+			JOptionPane.showMessageDialog(frame, "Student Is Not On The Roster");
+			return "";
+		}
 	}
 
 	public int compare(BufferedImage takenPic, File files) {
 		try {
+			int totalscore = 0;
 			BufferedImage i = ImageIO.read(files);
-			ImageIcon icon = new ImageIcon(takenPic);
-			int input = JOptionPane.showConfirmDialog(null, "Is this you?", "Person Checker",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
 			ImageComparer e = new ImageComparer (i);
 			ImageComparer d = new ImageComparer (takenPic);
 			takenPic = (BufferedImage) d.detectWhite(takenPic);
-			int d1 = d.greenCount(takenPic);
-			int e1 = e.greenCount(i);
-			System.out.println(d1);
-			System.out.println(e1);
-			return d1-e1;
+			i=(BufferedImage) e.detectWhite(i);
+			int d1=0;
+			int e1=0;
+			fixamtsections(takenPic,i);
+			for(int r=0;r<amtsections;r++) {
+				for(int c=0;c<amtsections;c++) {
+					d1 = d.greenCount(takenPic,r*(takenPic.getWidth()/amtsections),(r+1)*(takenPic.getWidth()/amtsections),
+							c*(takenPic.getHeight()/amtsections),(c+1)*(takenPic.getHeight()/amtsections));
+					e1 = e.greenCount(i,r*(i.getWidth()/amtsections),(r+1)*(i.getWidth()/amtsections),
+							c*(i.getHeight()/amtsections),(c+1)*(i.getHeight()/amtsections));
+					totalscore+=Math.abs(d1-e1);
+				}
+			}
+			System.out.println(totalscore);
+			return totalscore;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	private void fixamtsections(BufferedImage takenPic, BufferedImage i) {
+		int w1 = takenPic.getWidth();
+		int h1 = takenPic.getHeight();
+		int w2 = i.getWidth();
+		int h2 = i.getHeight();
+		double min = Math.sqrt(Math.min(Math.min(w1, w2),Math.min(h1,h2)));
+		if(min<amtsections) {
+			amtsections = (int) min;
+		}
 	}
 }
