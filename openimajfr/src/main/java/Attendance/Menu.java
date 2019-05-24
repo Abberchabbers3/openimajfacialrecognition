@@ -24,11 +24,11 @@ public class Menu {
 		else {
 			//user closed out of window
 		}
-//		JFrame window = new JFrame();
+/**		JFrame window = new JFrame();
 //		JPanel panel = new JPanel() {
 //			/**
 //			 * 
-//			 */
+//			 
 //			private static final long serialVersionUID = 2162279053724239438L;
 //
 //			@Override 
@@ -64,6 +64,6 @@ public class Menu {
 //		window.add(panel);
 //		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		window.pack();
-//		window.setVisible(true);
+		window.setVisible(true); **/
 	}
 }

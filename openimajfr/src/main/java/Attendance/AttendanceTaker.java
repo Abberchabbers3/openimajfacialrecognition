@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,6 +38,7 @@ public class AttendanceTaker {
 	JPanel panel;
 	Webcam webcam;
 	JLabel jlabel;
+	JFrame window;
 	int element = 0;
 	String mark;
 	int currx,curry,currw,currh;
@@ -56,7 +56,7 @@ public class AttendanceTaker {
 		webcam.setViewSize(WebcamResolution.VGA.getSize());
 		webcam.open(true);
 		detector = new HaarCascadeDetector();
-		JFrame window = new JFrame("Attendance");
+		window = new JFrame("Attendance");
 		panel = new JPanel() {
 			private static final long serialVersionUID = 8313458371063493113L;
 
@@ -139,6 +139,7 @@ public class AttendanceTaker {
 		window.setVisible(true);
 	}
 
+	@SuppressWarnings("unused")
 	public String attendanceChecker(BufferedImage picture) {
 		//works if the background is the same and the person is the same, untested in other scenarios
 		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
@@ -162,7 +163,20 @@ public class AttendanceTaker {
 		else { 
 			att=false;
 			JFrame frame = new JFrame("Error");
-			JOptionPane.showMessageDialog(frame, "Student Is Not On The Roster");
+			int n = JOptionPane.showConfirmDialog(null, "Student Not On Roster. Would You Like To Add Student?", "Roster",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if(n==0) {
+				window.dispose();
+				webcam.close();
+				ProfileCreator pc = new ProfileCreator();
+			}
+			else if(n==1) {
+				//Code For Taking Attendance
+				AttendanceTaker at = new AttendanceTaker();
+			}
+			else {
+				//user closed out of window
+			}
 			return "";
 		}
 	}

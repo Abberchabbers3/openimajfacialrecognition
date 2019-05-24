@@ -11,6 +11,7 @@ public class ImageComparer {
 		image = new int[picture.getWidth(null)][picture.getHeight(null)][3];
 	}
 	
+	@SuppressWarnings("unused")
 	public Image detectWhite(BufferedImage i) {
 		int count = 0;
 		for(int r=0; r<i.getWidth(null); r++) {
@@ -19,7 +20,7 @@ public class ImageComparer {
 				for(int x=3;x>0;x--) {
 					image[r][c][x-1]=(p>>(x*4) & 0xff);
 				}
-				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<275) {
+				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<240) {
 					Color GREEN = new Color(0,255,0);
 					int rgb = GREEN.getRGB();
 					i.setRGB(r, c, rgb);

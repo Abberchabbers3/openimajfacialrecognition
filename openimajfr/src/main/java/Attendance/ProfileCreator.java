@@ -37,6 +37,7 @@ public class ProfileCreator {
 	int currx,curry,currw,currh;
 	int x,y,w,h;
 	Webcam webcam;
+	JFrame window;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
@@ -49,7 +50,7 @@ public class ProfileCreator {
 		webcam.setViewSize(WebcamResolution.VGA.getSize());
 		webcam.open(true);
 		detector = new HaarCascadeDetector();
-		JFrame window = new JFrame();
+		window = new JFrame();
 		panel = new JPanel() {
 			private static final long serialVersionUID = 8313458371063493113L;
 
@@ -153,6 +154,20 @@ public class ProfileCreator {
 			ImageIO.write((RenderedImage) profileimage, "JPG", new File(name));
 			JOptionPane.showMessageDialog(frame, "Your Image Has Been Saved!");
 			System.out.format("File %s has been saved\n", name);
+			int input1 = JOptionPane.showConfirmDialog(null, "Would You Like To Take Attendance?", "Options",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if(input1==0) {
+				window.dispose();
+				webcam.close();
+				@SuppressWarnings("unused")
+				AttendanceTaker at = new AttendanceTaker();
+				return;
+			}
+			else if(input1==1) {
+				window.dispose();
+				webcam.close();
+				System.exit(0); 
+			}
 		} 
 		catch (IOException t) {
 			t.printStackTrace();
