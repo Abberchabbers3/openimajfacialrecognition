@@ -32,6 +32,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class ProfileCreator {
+	
 	Image j = null;
 	JPanel panel;
 	int currx,curry,currw,currh;
@@ -41,6 +42,7 @@ public class ProfileCreator {
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
+	
 	public ProfileCreator() {
 		initialize();
 	}
@@ -126,8 +128,9 @@ public class ProfileCreator {
 		window.pack();
 		window.setVisible(true);
 	}
+	
 	public void newprofile(Image profileimage) {
-		// this will save the image as a file in profiles after asking for a name and a conformation
+//		This Will Save The Image As A File In Profiles After Asking For A Name And Confirmation
 		if(faces.size()>1) {
 			JOptionPane.showMessageDialog(null, "Make sure there is only one face in frame!");
 			return;
@@ -174,9 +177,5 @@ public class ProfileCreator {
 		}
 		
 	}
-	public String getName() {
-		//Return Name From Saved Profile Image
-		
-		return null;
-	}
+	
 }

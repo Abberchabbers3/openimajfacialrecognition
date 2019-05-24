@@ -121,11 +121,10 @@ public class AttendanceTaker {
 			public void actionPerformed(ActionEvent e) {
 				BufferedImage blehpicture = ((BufferedImage) picture).getSubimage(x,y,w,h);
 				String s = attendanceChecker(blehpicture);
-				
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
 				else mark = "ABSENT";
-				JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
+				if(!s.equals("")) JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
 			    
 			}
 		});
@@ -168,10 +167,10 @@ public class AttendanceTaker {
 			if(n==0) {
 				window.dispose();
 				webcam.close();
-				ProfileCreator pc = new ProfileCreator();
 			}
 			else if(n==1) {
-				//Code For Taking Attendance
+				window.dispose();
+				webcam.close();
 				AttendanceTaker at = new AttendanceTaker();
 			}
 			else {
