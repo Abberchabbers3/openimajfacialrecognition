@@ -138,7 +138,7 @@ public class AttendanceTaker {
 	}
 
 	public String attendanceChecker(BufferedImage picture) {
-		//works if the background is the same and teh person is the same, untested in other scenarios
+		//works if the background is the same and the person is the same, untested in other scenarios
 		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
 		int best = Integer.MAX_VALUE;
 		int bindex=0;
