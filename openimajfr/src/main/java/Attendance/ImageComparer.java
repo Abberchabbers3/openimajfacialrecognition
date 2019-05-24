@@ -57,8 +57,9 @@ public class ImageComparer {
 		return count;
 	}
 	
-	public void setBackground(BufferedImage i,Color white) {
+	public BufferedImage setBackground(BufferedImage i,Color white) {
 		// find  face edges, then set the rest to white
-		//return i;
+		return i;
+
 	}
 }
