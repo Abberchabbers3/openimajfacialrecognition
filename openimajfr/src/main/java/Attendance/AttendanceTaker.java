@@ -167,6 +167,7 @@ public class AttendanceTaker {
 			if(n==0) {
 				window.dispose();
 				webcam.close();
+				ProfileCreator pc = new ProfileCreator();
 			}
 			else if(n==1) {
 				//do nothing
