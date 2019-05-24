@@ -129,7 +129,7 @@ public class ProfileCreator {
 		window.setVisible(true);
 	}
 	
-	public void newprofile(Image profileimage) {
+	public void newprofile(BufferedImage profileimage) {
 //		This Will Save The Image As A File In Profiles After Asking For A Name And Confirmation
 		if(faces.size()>1) {
 			JOptionPane.showMessageDialog(null, "Make sure there is only one face in frame!");
@@ -146,7 +146,9 @@ public class ProfileCreator {
 		JFrame frame = new JFrame("Profile Creator");
 		try {
 			String name = "ProfilePics/" + String.format("frcam-" + personID + "-%d.jpg", System.currentTimeMillis());
-			profileimage = ((BufferedImage) profileimage).getSubimage(x,y,w,h);
+			profileimage = (profileimage).getSubimage(x,y,w,h);
+			ImageComparer ic = new ImageComparer(profileimage);
+			ic.setBackground(profileimage,Color.WHITE);
 			ImageIcon icon = new ImageIcon(profileimage);
 			int input = JOptionPane.showConfirmDialog(null, "Is this you?", "Person Checker",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
