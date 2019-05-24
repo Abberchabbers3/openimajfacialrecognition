@@ -32,6 +32,8 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class AttendanceTaker {
+	//breaks image into amtsections squared so the image comparer counts that  many dots 
+	//and compares it to the same location in the other image, downsizes to fit smallest image
 	int amtsections = 100;
 	Image picture = null;
 	JPanel panel;
