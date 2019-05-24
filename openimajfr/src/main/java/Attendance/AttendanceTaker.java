@@ -171,8 +171,7 @@ public class AttendanceTaker {
 				ProfileCreator pc = new ProfileCreator();
 			}
 			else if(n==1) {
-				//Code For Taking Attendance
-				AttendanceTaker at = new AttendanceTaker();
+				//do nothing
 			}
 			else {
 				//user closed out of window
