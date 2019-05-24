@@ -43,10 +43,11 @@ public class AttendanceTaker {
 	String mark;
 	int currx,curry,currw,currh;
 	int x,y,w,h;
-	boolean att = true;
+	boolean att= false;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
+	
 	public AttendanceTaker() {
 		initialize();
 	}
@@ -123,7 +124,6 @@ public class AttendanceTaker {
 				String s = attendanceChecker(blehpicture);
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
-				else mark = "ABSENT";
 				if(!s.equals("")) JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
 			    
 			}
@@ -157,6 +157,7 @@ public class AttendanceTaker {
 			int j= file.getName().indexOf("-");
 			int k= file.getName().lastIndexOf("-");
 			String personName = file.getName().substring(j+1,k);
+			att=true;
 			return personName;
 		}
 		else { 

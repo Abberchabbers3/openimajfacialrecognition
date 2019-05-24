@@ -2,6 +2,7 @@ package Attendance;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class ImageComparer {
 
@@ -58,8 +59,53 @@ public class ImageComparer {
 	}
 	
 	public BufferedImage setBackground(BufferedImage i,Color white) {
-		// find  face edges, then set the rest to white
+		ArrayList<Integer> colors = new ArrayList<Integer>();
+		for(int r=0; r<i.getWidth(null); r++) {
+			for(int c=0; c<i.getHeight(null); c++) {
+				int p = i.getRGB(r,c);
+				colors.add(p);
+				System.out.print("color"+p+"-");
+			}
+		}
+		int cmax = mode(colors);
+		System.out.println("best:"+cmax);
+		for(int r=0; r<i.getWidth(null); r++) {
+			for(int c=0; c<i.getHeight(null); c++) {
+				i.setRGB(r, c, cmax);
+			}
+		}
 		return i;
 
+	}
+	
+	private int mode(ArrayList<Integer> color) {
+		int mode = color.get(0);
+	    int maxCount = 0;
+	    for (int i = 0; i < color.size(); i++) {
+	        int value = color.get(i);
+	        int count = 1;
+	        for (int j = 0; j < color.size(); j++) {
+	            if (closeenough(color.get(j),mode))
+	                count++;
+	            if (count > maxCount) {
+	                mode = value;
+	                maxCount = count;
+	            }
+	        }
+	    }
+	    return mode;
+	}
+
+	private boolean closeenough(Integer p,Integer cm) {
+		int cr=(p>>16) & 0xff;
+		int cg=(p>>8) & 0xff;
+		int cb= p & 0xff;
+		int mr=(p>>16) & 0xff;
+		int mg=(p>>8) & 0xff;
+		int mb= p & 0xff;
+		if(Math.abs(cr-mr)<=3&&Math.abs(cg-mg)<=3&&Math.abs(cb-mb)<=3) {
+			return true;
+		}
+		return false;
 	}
 }
