@@ -63,7 +63,6 @@ public class ProfileCreator {
 				if(faces != null && faces.size() > 0) {
 					for (DetectedFace face: faces) {
 						Rectangle bounds = face.getBounds();
-	
 						int dx = (int) (0.1 * bounds.width);
 						@SuppressWarnings("unused")
 						int dy = (int) (0.2 * bounds.height);
