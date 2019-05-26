@@ -186,8 +186,8 @@ public class AttendanceTaker {
 			BufferedImage i = ImageIO.read(files);
 			ImageComparer e = new ImageComparer (i);
 			ImageComparer d = new ImageComparer (takenPic);
-			takenPic = (BufferedImage) d.detectWhite(takenPic);
-			i=(BufferedImage) e.detectWhite(i);
+			takenPic = (BufferedImage) d.detectWhite(takenPic,true);
+			i=(BufferedImage) e.detectWhite(i,true);
 			int d1=0;
 			int e1=0;
 			fixamtsections(takenPic,i);

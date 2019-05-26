@@ -1,6 +1,7 @@
 package Attendance;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -9,22 +10,22 @@ public class ImageComparer {
 	int[][][]image;
 	
 	public ImageComparer(BufferedImage picture) {
-		image = new int[picture.getWidth(null)][picture.getHeight(null)][3];
+		image = new int[picture.getHeight(null)][picture.getWidth(null)][3];
 	}
 	
 	@SuppressWarnings("unused")
-	public Image detectWhite(BufferedImage i) {
+	public Image detectWhite(BufferedImage i,boolean change) {
 		int count = 0;
-		for(int r=0; r<i.getWidth(null); r++) {
-			for(int c=0; c<i.getHeight(null); c++) {
-				int p = i.getRGB(r,c);
+		for(int r=0; r<i.getHeight(null); r++) {
+			for(int c=0; c<i.getWidth(null); c++) {
+				int p = i.getRGB(c,r);
 				for(int x=3;x>0;x--) {
 					image[r][c][x-1]=(p>>(x*4) & 0xff);
 				}
-				if(image[r][c][0]+image[r][c][1]+image[r][c][2]<240) {
+				if(change&&image[r][c][0]+image[r][c][1]+image[r][c][2]<240) {
 					Color GREEN = new Color(0,255,0);
 					int rgb = GREEN.getRGB();
-					i.setRGB(r, c, rgb);
+					i.setRGB(c, r, rgb);
 					count++;
 				}
 			}
@@ -59,53 +60,97 @@ public class ImageComparer {
 	}
 	
 	public BufferedImage setBackground(BufferedImage i,Color white) {
-		ArrayList<Integer> colors = new ArrayList<Integer>();
-		for(int r=0; r<i.getWidth(null); r++) {
-			for(int c=0; c<i.getHeight(null); c++) {
-				int p = i.getRGB(r,c);
-				colors.add(p);
-				System.out.print("color"+p+"-");
-			}
-		}
-		int cmax = mode(colors);
-		System.out.println("best:"+cmax);
-		for(int r=0; r<i.getWidth(null); r++) {
-			for(int c=0; c<i.getHeight(null); c++) {
-				i.setRGB(r, c, cmax);
-			}
-		}
+		i = detectedges(i,100);
 		return i;
 
 	}
 	
-	private int mode(ArrayList<Integer> color) {
-		int mode = color.get(0);
-	    int maxCount = 0;
-	    for (int i = 0; i < color.size(); i++) {
-	        int value = color.get(i);
-	        int count = 1;
-	        for (int j = 0; j < color.size(); j++) {
-	            if (closeenough(color.get(j),mode))
-	                count++;
-	            if (count > maxCount) {
-	                mode = value;
-	                maxCount = count;
-	            }
-	        }
+	private BufferedImage detectedges(BufferedImage i,int edgeDist) {
+		int leftPixel;
+	    int rightPixel;
+	    int[][] pixels = image2D(i);
+	    for (int r = 0;r<pixels.length;r++) {
+	    	for (int c = 0;c<pixels[r].length;c++){
+	    		leftPixel=pixels[r][c] ;
+	    		if(c==pixels[r].length-1) {
+	    			rightPixel=pixels[r][c-1];
+	    		}
+	    		else {
+	    			rightPixel=pixels[r][c+1];
+	    		}
+	    		double dist = getdistance(rightPixel,leftPixel);
+	    		System.out.println(" distance:"+dist);
+	    		if (dist > edgeDist) {
+	    			int rgb= new Color(0,0,0).getRGB();
+	    			i.setRGB(c, r, rgb);
+	    			pixels[r][c]=rgb;
+	    		}
+	    		else {
+	    			int rgb= new Color(255,255,255).getRGB();
+	    			i.setRGB(c, r, rgb);
+	    			pixels[r][c]=rgb;
+	    		}
+	    	}
 	    }
-	    return mode;
+	    return i;
 	}
 
-	private boolean closeenough(Integer p,Integer cm) {
-		int cr=(p>>16) & 0xff;
-		int cg=(p>>8) & 0xff;
-		int cb= p & 0xff;
-		int mr=(p>>16) & 0xff;
-		int mg=(p>>8) & 0xff;
-		int mb= p & 0xff;
-		if(Math.abs(cr-mr)<=3&&Math.abs(cg-mg)<=3&&Math.abs(cb-mb)<=3) {
-			return true;
-		}
-		return false;
+	private double getdistance(int rightPixel, int leftPixel) {
+		int r1=(leftPixel>>16) & 0xff;
+		int g1=(leftPixel>>8) & 0xff;
+		int b1= leftPixel & 0xff;
+		System.out.print("1:red:"+r1+" blue:"+b1+" green:"+g1);
+		int r2=(rightPixel>>16) & 0xff;
+		int g2=(rightPixel>>8) & 0xff;
+		int b2= rightPixel & 0xff;
+		System.out.print(" 2:red:"+r2+" blue:"+b2+" green:"+g2);
+		int redDifference = r2 - r1;
+		int greenDifference = g2 - g1;
+		int blueDifference = b2 - b1;
+		return Math.sqrt(redDifference * redDifference + greenDifference * greenDifference + blueDifference * blueDifference);
 	}
+
+	private int[][] image2D(BufferedImage i) {
+		this.detectWhite(i, false);
+		int[][] pixels = new int[image.length][image[0].length];
+		for (int r = 0;r<pixels.length;r++) {
+	    	for (int c = 0;c<pixels[r].length;c++){
+	    		Color color = new Color(image[r][c][0],image[r][c][1],image[r][c][2]);
+				int rgb = color.getRGB();
+	    		pixels[r][c]=rgb;
+	    	}
+		}
+		return pixels;
+	}
+
+//	private int mode(ArrayList<Integer> color) {
+//		int mode = color.get(0);
+//	    int maxCount = 0;
+//	    for (int i = 0; i < color.size(); i++) {
+//	        int value = color.get(i);
+//	        int count = 1;
+//	        for (int j = 0; j < color.size(); j++) {
+//	            if (closeenough(color.get(j),mode))
+//	                count++;
+//	            if (count > maxCount) {
+//	                mode = value;
+//	                maxCount = count;
+//	            }
+//	        }
+//	    }
+//	    return mode;
+//	}
+
+//	private boolean closeenough(Integer p,Integer cm) {
+//		int cr=(p>>16) & 0xff;
+//		int cg=(p>>8) & 0xff;
+//		int cb= p & 0xff;
+//		int mr=(p>>16) & 0xff;
+//		int mg=(p>>8) & 0xff;
+//		int mb= p & 0xff;
+//		if(Math.abs(cr-mr)<=3&&Math.abs(cg-mg)<=3&&Math.abs(cb-mb)<=3) {
+//			return true;
+//		}
+//		return false;
+//	}
 }
