@@ -1,5 +1,6 @@
 package Attendance;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.image.BufferedImage;
@@ -59,8 +60,39 @@ public class ImageComparer {
 		return count;
 	}
 	
-	public BufferedImage setBackground(BufferedImage i,Color white) {
+	public BufferedImage getedeges(BufferedImage i) {
 		i = detectedges(i,100);
+		return i;
+
+	}
+	public BufferedImage setBackground(BufferedImage i,int ox,int oy,int wr,int hr,Color bg) {
+		boolean inface=true;
+		boolean magenta=false;
+		Graphics2D g = i.createGraphics();
+		g.setColor(Color.magenta);
+		System.out.println(g.getStroke());
+		g.drawOval(ox, oy, wr, hr);
+		for(int r=0;r<i.getHeight();r++) {
+			for(int c=0;c<i.getWidth();c++) {
+				int rgb=i.getRGB(c, r);
+				Color clr = new Color((rgb>>16) & 0xff,(rgb>>8) & 0xff,rgb & 0xff);
+				if(clr.equals(Color.magenta)) {
+					if(magenta==false) {
+						inface = !inface;
+						magenta=true;
+					}
+					rgb = bg.getRGB();
+					i.setRGB(c, r, rgb);
+				}
+				else if(!clr.equals(Color.magenta)) {
+					magenta=false;
+				}
+				if(!inface) {
+					rgb = bg.getRGB();
+					i.setRGB(c, r, rgb);
+				}
+			}
+		}
 		return i;
 
 	}

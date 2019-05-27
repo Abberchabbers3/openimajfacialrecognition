@@ -34,7 +34,7 @@ public class AttendanceTaker {
 	//breaks image into amtsections squared so the image comparer counts that  many dots 
 	//and compares it to the same location in the other image, downsizes to fit smallest image
 	int amtsections = 100;
-	Image picture = null;
+	BufferedImage picture = null;
 	JPanel panel;
 	Webcam webcam;
 	JLabel jlabel;
@@ -42,7 +42,7 @@ public class AttendanceTaker {
 	int element = 0;
 	String mark;
 	int currx,curry,currw,currh;
-	int x,y,w,h;
+	int x,y,w,h,ry,rx,ccx,ccy;
 	boolean att= false;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
@@ -81,6 +81,12 @@ public class AttendanceTaker {
 						y=curry;
 						w=currw;
 						h=currh;
+						ry = h;
+						rx = 8*(w/10);
+						ccx = x;
+						ccy = y;
+						y++;
+						h++;
 						
 						Graphics2D g2 = (Graphics2D) g.create();
 						g2.setStroke(STROKE);
@@ -93,7 +99,7 @@ public class AttendanceTaker {
 		};
 		Dimension d = new Dimension(800,600);
 		window.setPreferredSize(d);
-		Timer imagetimer = new Timer((int) 0,new ActionListener() {
+		Timer imagetimer = new Timer(0,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (!webcam.isOpen()) {
@@ -120,7 +126,9 @@ public class AttendanceTaker {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BufferedImage blehpicture = ((BufferedImage) picture).getSubimage(x,y,w,h);
+				ImageComparer ic = new ImageComparer(picture);
+				ic.setBackground(picture,ccx,ccy,rx,ry,Color.WHITE);
+				BufferedImage blehpicture = (picture.getSubimage(ccx,ccy+1,rx,ry-1));
 				String s = attendanceChecker(blehpicture);
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
@@ -140,7 +148,6 @@ public class AttendanceTaker {
 
 	@SuppressWarnings("unused")
 	public String attendanceChecker(BufferedImage picture) {
-		//works if the background is the same and the person is the same, untested in other scenarios
 		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
 		int best = Integer.MAX_VALUE;
 		int bindex=0;

@@ -36,7 +36,7 @@ public class ProfileCreator {
 	Image j = null;
 	JPanel panel;
 	int currx,curry,currw,currh;
-	int x,y,w,h;
+	int x,y,w,h,ccx,ccy,rx,ry;
 	Webcam webcam;
 	JFrame window;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
@@ -70,7 +70,6 @@ public class ProfileCreator {
 						curry = (int) bounds.y;
 						currw = (int) bounds.width + 2 * dx;
 						currh = (int) bounds.height;
-						
 						Graphics2D g2 = (Graphics2D) g.create();
 						g2.setStroke(STROKE);
 						g2.setColor(Color.GREEN);
@@ -114,6 +113,12 @@ public class ProfileCreator {
 				y=curry;
 				w=currw;
 				h=currh;
+				ry = h;
+				rx = 8*(w/10);
+				ccx = x;
+				ccy = y;
+				y++;
+				h++;
 				newprofile(webcam.getImage());
 			}
 		});
@@ -145,16 +150,17 @@ public class ProfileCreator {
 		JFrame frame = new JFrame("Profile Creator");
 		try {
 			String name = "ProfilePics/" + String.format("frcam-" + personID + "-%d.jpg", System.currentTimeMillis());
-			profileimage = (profileimage).getSubimage(x,y,w,h);
-			ImageComparer ic = new ImageComparer(profileimage);
-			ic.setBackground(profileimage,Color.WHITE);
-			ImageIcon icon = new ImageIcon(profileimage);
+			BufferedImage iconprofileimage = (profileimage).getSubimage(ccx,ccy+1,rx,ry-1);
+			ImageIcon icon = new ImageIcon(iconprofileimage);
 			int input = JOptionPane.showConfirmDialog(null, "Is this you?", "Person Checker",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
-			if(input==1) {
+			if(input!=0) {
 				JOptionPane.showMessageDialog(null, "This profile has not been saved.");
 				return;
 			}
+			ImageComparer ic = new ImageComparer(profileimage);
+			ic.setBackground(profileimage,ccx,ccy,rx,ry,Color.WHITE);
+			profileimage = (profileimage).getSubimage(ccx,ccy+1,rx,ry-1);
 			ImageIO.write((RenderedImage) profileimage, "JPG", new File(name));
 			JOptionPane.showMessageDialog(frame, "Your Image Has Been Saved!");
 			System.out.format("File %s has been saved\n", name);
