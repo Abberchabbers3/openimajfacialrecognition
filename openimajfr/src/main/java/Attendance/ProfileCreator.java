@@ -124,7 +124,7 @@ public class ProfileCreator {
 		});
 		panel.setLayout(null);
 		//fix button bounds
-		picbutton.setBounds(0,(3*d.width)/5, d.width, d.height/5);
+		picbutton.setBounds(0,d.width/2+60, d.width, d.height/5);
 		System.out.println(picbutton.getY());
 		panel.add(picbutton);
 		window.add(panel);

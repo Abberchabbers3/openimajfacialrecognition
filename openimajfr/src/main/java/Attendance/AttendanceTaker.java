@@ -132,13 +132,15 @@ public class AttendanceTaker {
 				String s = attendanceChecker(blehpicture);
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
+				System.out.print(mark);
+				System.out.println();
 				if(!s.equals("")) JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
 			    
 			}
 		});
 		panel.setLayout(null);
 		//fix button bounds
-		picbutton.setBounds(0,(3*d.width)/5, d.width, d.height/5);
+		picbutton.setBounds(0,d.width/2+60, d.width, d.height/5);
 		panel.add(picbutton);
 		window.add(panel);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,10 +162,11 @@ public class AttendanceTaker {
 			}
 		}
 		File file = files[bindex];
-		if(best <=5000) {
+		if(best <=3000) {
 			int j= file.getName().indexOf("-");
 			int k= file.getName().lastIndexOf("-");
 			String personName = file.getName().substring(j+1,k);
+			System.out.print(personName + ": ");
 			att=true;
 			return personName;
 		}

@@ -60,7 +60,7 @@ public class ImageComparer {
 		return count;
 	}
 	
-	public BufferedImage getedeges(BufferedImage i) {
+	public BufferedImage getedges(BufferedImage i) {
 		i = detectedges(i,100);
 		return i;
 
