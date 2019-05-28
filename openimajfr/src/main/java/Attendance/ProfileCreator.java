@@ -154,6 +154,8 @@ public class ProfileCreator {
 			JOptionPane.showMessageDialog(null, "There are no faces in view!");
 			return;
 		}
+		window.dispose();
+		webcam.close();
 		String personID=null;
 		while(personID==null) {
 			personID = JOptionPane.showInputDialog("What Is Your Full Name?");
