@@ -116,8 +116,9 @@ public class ProfileCreator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				flash=true;
+				panel.repaint();
 				BufferedImage picture=webcam.getImage();
-//				faces = detector.detectFaces(ImageUtilities.createFImage(picture));
+				flash=false;
 				panel.repaint();
 				x=currx;
 				y=curry;
@@ -156,7 +157,6 @@ public class ProfileCreator {
 		String personID=null;
 		while(personID==null) {
 			personID = JOptionPane.showInputDialog("What Is Your Full Name?");
-			flash=false;
 		}
 		JFrame frame = new JFrame("Profile Creator");
 		try {

@@ -132,9 +132,10 @@ public class AttendanceTaker {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				flash=true;
+				panel.repaint();
 				picture=webcam.getImage();
-				
-				faces = detector.detectFaces(ImageUtilities.createFImage(picture));
+				flash=false;
+				//faces = detector.detectFaces(ImageUtilities.createFImage(picture));
 				panel.repaint();
 				ImageComparer ic = new ImageComparer(picture);
 				ic.setBackground(picture,ccx,ccy,rx,ry,Color.WHITE);
