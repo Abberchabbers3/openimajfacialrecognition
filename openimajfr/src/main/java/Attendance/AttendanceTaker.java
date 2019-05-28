@@ -162,6 +162,7 @@ public class AttendanceTaker {
 			}
 		}
 		File file = files[bindex];
+		//varies based on lighting
 		if(best <=2000) {
 			int j= file.getName().indexOf("-");
 			int k= file.getName().lastIndexOf("-");
