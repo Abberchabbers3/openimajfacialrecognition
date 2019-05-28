@@ -37,6 +37,7 @@ public class ProfileCreator {
 	JPanel panel;
 	int currx,curry,currw,currh;
 	int x,y,w,h,ccx,ccy,rx,ry;
+	boolean flash=false;
 	Webcam webcam;
 	JFrame window;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
@@ -59,6 +60,11 @@ public class ProfileCreator {
 			@Override 
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
+				if(flash) {
+					g.setColor(Color.white);
+					g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
+					return;
+				}
 				g.drawImage(j, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
 				if(faces != null && faces.size() > 0) {
 					for (DetectedFace face: faces) {
@@ -109,6 +115,10 @@ public class ProfileCreator {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				flash=true;
+				BufferedImage picture=webcam.getImage();
+//				faces = detector.detectFaces(ImageUtilities.createFImage(picture));
+				panel.repaint();
 				x=currx;
 				y=curry;
 				w=currw;
@@ -119,7 +129,7 @@ public class ProfileCreator {
 				ccy = y;
 				y++;
 				h++;
-				newprofile(webcam.getImage());
+				newprofile(picture);
 			}
 		});
 		panel.setLayout(null);
@@ -145,9 +155,8 @@ public class ProfileCreator {
 		}
 		String personID=null;
 		while(personID==null) {
-			window.dispose();
-			webcam.close();
 			personID = JOptionPane.showInputDialog("What Is Your Full Name?");
+			flash=false;
 		}
 		JFrame frame = new JFrame("Profile Creator");
 		try {
