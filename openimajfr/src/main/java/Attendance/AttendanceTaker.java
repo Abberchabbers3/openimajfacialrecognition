@@ -136,7 +136,6 @@ public class AttendanceTaker {
 				panel.repaint();
 				picture=webcam.getImage();
 				flash=false;
-				//faces = detector.detectFaces(ImageUtilities.createFImage(picture));
 				panel.repaint();
 				ImageComparer ic = new ImageComparer(picture);
 				ic.setBackground(picture,ccx,ccy,rx,ry,Color.WHITE);
@@ -147,7 +146,6 @@ public class AttendanceTaker {
 				System.out.print(mark);
 				System.out.println();
 				if(!s.equals("")) JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
-				flash=false;
 			}
 		});
 		panel.setLayout(null);
