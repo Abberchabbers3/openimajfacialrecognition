@@ -118,7 +118,8 @@ public class ProfileCreator {
 			public void actionPerformed(ActionEvent e) {
 				flash=true;
 				panel.repaint();
-				BufferedImage picture=webcam.getImage();
+				System.out.println("taking image");
+				BufferedImage picture = webcam.getImage();
 				flash=false;
 				panel.repaint();
 				x=currx;
@@ -158,8 +159,12 @@ public class ProfileCreator {
 		window.dispose();
 		webcam.close();
 		String personID=null;
-		while(personID==null) {
-			personID = JOptionPane.showInputDialog("What Is Your Full Name?");
+		//while(personID==null) {
+		personID = JOptionPane.showInputDialog("What Is Your Full Name?");
+		//}
+		if (personID == null) {
+			JOptionPane.showMessageDialog(null, "This profile has not been saved.");
+			return;
 		}
 		JFrame frame = new JFrame("Profile Creator");
 		try {
