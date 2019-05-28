@@ -61,6 +61,7 @@ public class ProfileCreator {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				if(flash) {
+					System.out.println("flash");
 					g.setColor(Color.white);
 					g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
 					return;

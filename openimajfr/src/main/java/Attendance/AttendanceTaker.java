@@ -67,6 +67,7 @@ public class AttendanceTaker {
 				//Faces Are Off Center
 				super.paintComponent(g);
 				if(flash) {
+					System.out.println("flash");
 					g.setColor(Color.white);
 					g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
 					return;
