@@ -162,7 +162,7 @@ public class AttendanceTaker {
 			}
 		}
 		File file = files[bindex];
-		if(best <=3000) {
+		if(best <=5000) {
 			int j= file.getName().indexOf("-");
 			int k= file.getName().lastIndexOf("-");
 			String personName = file.getName().substring(j+1,k);
