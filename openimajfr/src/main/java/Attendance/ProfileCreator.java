@@ -145,6 +145,8 @@ public class ProfileCreator {
 		}
 		String personID=null;
 		while(personID==null) {
+			window.dispose();
+			webcam.close();
 			personID = JOptionPane.showInputDialog("What Is Your Full Name?");
 		}
 		JFrame frame = new JFrame("Profile Creator");
