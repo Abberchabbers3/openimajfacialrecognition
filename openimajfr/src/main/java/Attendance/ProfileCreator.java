@@ -193,6 +193,7 @@ public class ProfileCreator {
 				return;
 			}
 			else if(input1==1) {
+				//make sure you exit out of the program at each of these points
 				window.dispose();
 				webcam.close();
 				System.exit(0); 
