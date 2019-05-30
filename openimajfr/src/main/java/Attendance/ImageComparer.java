@@ -70,7 +70,7 @@ public class ImageComparer {
 		boolean magenta=false;
 		Graphics2D g = i.createGraphics();
 		g.setColor(Color.magenta);
-		System.out.println(g.getStroke());
+		//System.out.println(g.getStroke());
 		g.drawOval(ox, oy, wr, hr);
 		for(int r=0;r<i.getHeight();r++) {
 			for(int c=0;c<i.getWidth();c++) {
@@ -111,7 +111,7 @@ public class ImageComparer {
 	    			rightPixel=pixels[r][c+1];
 	    		}
 	    		double dist = getdistance(rightPixel,leftPixel);
-	    		System.out.println(" distance:"+dist);
+	    		//System.out.println(" distance:"+dist);
 	    		if (dist > edgeDist) {
 	    			int rgb= new Color(0,0,0).getRGB();
 	    			i.setRGB(c, r, rgb);
@@ -131,11 +131,11 @@ public class ImageComparer {
 		int r1=(leftPixel>>16) & 0xff;
 		int g1=(leftPixel>>8) & 0xff;
 		int b1= leftPixel & 0xff;
-		System.out.print("1:red:"+r1+" blue:"+b1+" green:"+g1);
+		//System.out.print("1:red:"+r1+" blue:"+b1+" green:"+g1);
 		int r2=(rightPixel>>16) & 0xff;
 		int g2=(rightPixel>>8) & 0xff;
 		int b2= rightPixel & 0xff;
-		System.out.print(" 2:red:"+r2+" blue:"+b2+" green:"+g2);
+		//System.out.print(" 2:red:"+r2+" blue:"+b2+" green:"+g2);
 		int redDifference = r2 - r1;
 		int greenDifference = g2 - g1;
 		int blueDifference = b2 - b1;

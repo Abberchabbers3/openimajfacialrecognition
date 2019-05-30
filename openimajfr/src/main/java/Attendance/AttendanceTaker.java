@@ -132,7 +132,7 @@ public class AttendanceTaker {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				flash=true;
+				//flash=true;
 				panel.repaint();
 				picture=webcam.getImage();
 				flash=false;
@@ -143,8 +143,8 @@ public class AttendanceTaker {
 				String s = attendanceChecker(blehpicture);
 				JFrame frame = new JFrame("Recorded!");
 				if (att==true) mark = "PRESENT";
-				System.out.print(mark);
-				System.out.println();
+				//System.out.print(mark);
+				//System.out.println();
 				if(!s.equals("")) JOptionPane.showMessageDialog(frame, s + " has been marked: " + mark);
 			}
 		});
@@ -164,7 +164,7 @@ public class AttendanceTaker {
 		int best = Integer.MAX_VALUE;
 		int bindex=0;
 		for(int i = element ; i < files.length ; i++) {
-			System.out.println(files[i].getName());
+			//System.out.println(files[i].getName());
 			int result = compare(picture, files[i]);
 			if(result<best) {
 				best=result;
@@ -177,7 +177,7 @@ public class AttendanceTaker {
 			int j= file.getName().indexOf("-");
 			int k= file.getName().lastIndexOf("-");
 			String personName = file.getName().substring(j+1,k);
-			System.out.print(personName + ": ");
+			//System.out.print(personName + ": ");
 			att=true;
 			return personName;
 		}
@@ -219,7 +219,7 @@ public class AttendanceTaker {
 					totalscore+=Math.abs(d1-e1);
 				}
 			}
-			System.out.println(totalscore);
+			//System.out.println(totalscore);
 			return totalscore;
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -120,9 +120,9 @@ public class ProfileCreator {
 		picbutton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				flash=true;
+				//flash=true;
 				panel.repaint();
-				System.out.println("taking image");
+				//System.out.println("taking image");
 				picture = webcam.getImage();
 				panel.repaint();
 				x=currx;
@@ -141,7 +141,6 @@ public class ProfileCreator {
 		panel.setLayout(null);
 		//fix button bounds
 		picbutton.setBounds(0,d.width/2+60, d.width, d.height/5);
-		System.out.println(picbutton.getY());
 		panel.add(picbutton);
 		window.add(panel);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -187,7 +186,7 @@ public class ProfileCreator {
 			profileimage = (profileimage).getSubimage(ccx,ccy+1,rx,ry-1);
 			ImageIO.write((RenderedImage) profileimage, "JPG", new File(name));
 			JOptionPane.showMessageDialog(frame, "Your Image Has Been Saved!");
-			System.out.format("File %s has been saved\n", name);
+			//System.out.format("File %s has been saved\n", name);
 			int input1 = JOptionPane.showConfirmDialog(null, "Would You Like To Take Attendance?", "Options",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if(input1==0) {
