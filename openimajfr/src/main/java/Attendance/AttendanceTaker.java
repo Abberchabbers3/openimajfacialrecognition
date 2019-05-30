@@ -159,7 +159,8 @@ public class AttendanceTaker {
 
 	@SuppressWarnings("unused")
 	public String attendanceChecker(BufferedImage picture) {
-		File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
+		//File files[] = new File("./ProfilePics").listFiles(file -> !file.isHidden() && !file.isDirectory());
+		File files[] = new File("./ProfilePics").listFiles();
 		int best = Integer.MAX_VALUE;
 		int bindex=0;
 		for(int i = element ; i < files.length ; i++) {
