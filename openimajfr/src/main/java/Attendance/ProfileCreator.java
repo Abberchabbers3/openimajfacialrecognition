@@ -14,6 +14,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -38,8 +39,10 @@ public class ProfileCreator {
 	int currx,curry,currw,currh;
 	int x,y,w,h,ccx,ccy,rx,ry;
 	boolean flash=false;
+	BufferedImage picture;
 	Webcam webcam;
 	JFrame window;
+	Graphics gr;
 	private static final Stroke STROKE = new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
 	private List<DetectedFace> faces;
 	private static HaarCascadeDetector detector;
@@ -59,14 +62,15 @@ public class ProfileCreator {
 
 			@Override 
 			public void paintComponent(Graphics g) {
-				super.paintComponent(g);
+				gr=g;
+				super.paintComponent(gr);
 				if(flash) {
-					System.out.println("flash");
-					g.setColor(Color.white);
-					g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
+					gr.setColor(Color.white);
+					gr.fillRect(0, 0, panel.getWidth(), panel.getHeight());
+					
 					return;
 				}
-				g.drawImage(j, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
+				gr.drawImage(j, 0, 0, panel.getWidth(), (4*panel.getHeight())/5, this);
 				if(faces != null && faces.size() > 0) {
 					for (DetectedFace face: faces) {
 						Rectangle bounds = face.getBounds();
@@ -100,7 +104,7 @@ public class ProfileCreator {
 		});
 		imagetimer.start();
 		//Made This A Separate Slower Timer Because It Was Really Laggy But It Didn't Help Too Much
-		Timer facedetection = new Timer(0,new ActionListener() {
+		Timer facedetection = new Timer(1/2,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (!webcam.isOpen()) {
@@ -119,8 +123,7 @@ public class ProfileCreator {
 				flash=true;
 				panel.repaint();
 				System.out.println("taking image");
-				BufferedImage picture = webcam.getImage();
-				flash=false;
+				picture = webcam.getImage();
 				panel.repaint();
 				x=currx;
 				y=curry;
@@ -156,11 +159,13 @@ public class ProfileCreator {
 			JOptionPane.showMessageDialog(null, "There are no faces in view!");
 			return;
 		}
+		
 		window.dispose();
 		webcam.close();
 		String personID=null;
 		//while(personID==null) {
 		personID = JOptionPane.showInputDialog("What Is Your Full Name?");
+		flash=false;
 		//}
 		if (personID == null) {
 			JOptionPane.showMessageDialog(null, "This profile has not been saved.");
