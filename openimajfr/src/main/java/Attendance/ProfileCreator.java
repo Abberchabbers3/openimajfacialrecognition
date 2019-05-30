@@ -169,7 +169,7 @@ public class ProfileCreator {
 		//}
 		if (personID == null) {
 			JOptionPane.showMessageDialog(null, "This profile has not been saved.");
-			return;
+			System.exit(0);
 		}
 		JFrame frame = new JFrame("Profile Creator");
 		try {
