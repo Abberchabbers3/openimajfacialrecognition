@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,7 +66,7 @@ public class AttendanceTaker {
 				//Faces Are Off Center
 				super.paintComponent(g);
 				if(flash) {
-					System.out.println("flash");
+//					System.out.println("flash");
 					g.setColor(Color.white);
 					g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
 					return;
@@ -164,7 +163,7 @@ public class AttendanceTaker {
 		int best = Integer.MAX_VALUE;
 		int bindex=0;
 		for(int i = element ; i < files.length ; i++) {
-			//System.out.println(files[i].getName());
+//			System.out.println(files[i].getName());
 			int result = compare(picture, files[i]);
 			if(result<best) {
 				best=result;
@@ -219,7 +218,7 @@ public class AttendanceTaker {
 					totalscore+=Math.abs(d1-e1);
 				}
 			}
-			//System.out.println(totalscore);
+//			System.out.println(totalscore);
 			return totalscore;
 		} catch (IOException e) {
 			e.printStackTrace();
