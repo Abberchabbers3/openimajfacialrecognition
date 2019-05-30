@@ -29,6 +29,7 @@ import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
 import org.openimaj.math.geometry.shape.Rectangle;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class ProfileCreator {
@@ -56,6 +57,7 @@ public class ProfileCreator {
 		webcam.open(true);
 		detector = new HaarCascadeDetector();
 		window = new JFrame();
+		
 		panel = new JPanel() {
 			private static final long serialVersionUID = 8313458371063493113L;
 

@@ -1,4 +1,6 @@
 package Attendance;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 public class Menu {
@@ -14,7 +16,9 @@ public class Menu {
 		int n = JOptionPane.showOptionDialog(null, "What would you like to do?", "Set-up", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0);
 		if(n==0) {
 			//Code To Create A New Profile
-			ProfileCreator pc = new ProfileCreator();
+			
+				ProfileCreator pc = new ProfileCreator();
+			
 			
 		}
 		else if(n==1) {
@@ -22,7 +26,7 @@ public class Menu {
 			AttendanceTaker at = new AttendanceTaker();
 		}
 		else {
-			//user closed out of window
+			System.exit(0);
 		}
 	}	
 }

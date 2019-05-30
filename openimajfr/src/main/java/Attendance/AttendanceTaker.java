@@ -186,7 +186,7 @@ public class AttendanceTaker {
 			int n = JOptionPane.showConfirmDialog(null, "Student Not On Roster. Would You Like To Add Student?", "Roster",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if(n==0) {
-				ProfileCreator pc = new ProfileCreator();
+					ProfileCreator pc = new ProfileCreator();
 			}
 			else if(n==1) {
 				//do nothing
