@@ -29,7 +29,6 @@ import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
 import org.openimaj.math.geometry.shape.Rectangle;
 
 import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 
 public class ProfileCreator {
